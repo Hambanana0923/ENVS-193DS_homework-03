@@ -104,4 +104,6 @@ To evaluate the strength of the relationship between California pickleweed bioma
 
 The results show a moderate relationship between soil salinity and pickleweed biomass, meaning that pickleweed biomass tends to increase as soil salinity increases. The correlation coefficient was moderate and positive (Pearson's r = 0.53, t(21)= 2.90, p = 0.0086, $\alpha$ = 0.05), suggesting that higher salinity conditions are associated with greater pickleweed biomass in this restoration site.
 
-## 
+## e. Test implications
+
+Our analysis shows a moderate and positive relationship between soil salinity and pickleweed biomass, meaning pickleweed tends to grow larger in areas with higher salinity levels. This statistical result suggests that restoration efforts of pickleweed may be more successful in parts of the site that are more saline, since pickleweed appears to have larger biomass at more saline conditions. When planning new plantings, we should prioritize areas with similar, high salinity levels to improve the chances of strong plant growth.
