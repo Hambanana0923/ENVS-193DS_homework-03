@@ -31,21 +31,65 @@ personal <- read_csv("data/env193ds_personaldata.csv")
 
 ## a. An appropriate test
 
-Two appropriate tests are Pearson's correlation and Spearman's rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson's correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman's rank correlation looks for monotonic relationship between variables in independent observations without assuming normality, meaning they evaluate whether or not biomass GENERALLY increases or decreases with salinity.
+Two appropriate tests are Pearson's correlation and Spearman's rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson's correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman's rank correlation looks for monotonic relationship between variables in independent observations without assuming normality, meaning they evaluate whether or not biomass generally increases or decreases with salinity.
 
 ## b. Create a visualization
 
 ```{r}
 #| label: Visualization
 
-ggplot(data = salinity,
-       aes(x = salinity_mS_cm,
-           y = pickleweed)) +
-  geom_point(color = "darkgreen",
-             size = 3) +
+# base layer: ggplot call
+ggplot(data = salinity, # use salinity data frame
+       aes(x = salinity_mS_cm, # set x axis to salinity_mS_cm column 
+           y = pickleweed)) + # set y axis to pickleweed column
+  geom_point(color = "darkgreen") + # first layer: scatter plot & change color to dark green
   labs(
-    x = "Soil Salinity (mS/cm)",
-    y = "California Pickleweed Biomass (g)",
-    title = "Relationship Between Soil Salinity and Pickleweed Biomass") +
-  theme_minimal()
+    x = "Soil Salinity (mS/cm)", # change x-axis label
+    y = "California Pickleweed Biomass (g)", # change y-axis label
+    title = "Relationship Between Soil Salinity and Pickleweed Biomass") + # name the title of the graph
+  theme_minimal() # change ggplot theme to minimal
+```
+
+## c. Check your assumptions and run your test
+
+Checking assumption:
+
+```{r}
+#| label: salinity obs (qqplot normality check)
+
+ggplot(data = salinity, # starting data frame
+       aes(sample = salinity_mS_cm)) + # y-axis for a QQ plot
+  geom_qq_line(color = "blue") + # reference line in blue
+  geom_qq() + # actual points for the QQ plot
+  theme_minimal() + # changing the theme to minimal
+  theme(legend.position = "none") #taking out legend
+
+```
+
+```{r}
+#| label: biomass obs (qqplot normality check)
+
+ggplot(data = salinity, # starting data frame
+       aes(sample = pickleweed)) + # y-axis for a QQ plot
+  geom_qq_line(color = "red") + # reference line in blue
+  geom_qq() + # actual points for the QQ plot
+  theme_minimal() + # changing the theme to minimal
+  theme(legend.position = "none") #taking out legends
+```
+
+I checked the assumptions of normality and linearity for Pearson’s correlation. I used QQ plots to visually assess whether the distributions of soil salinity (mS/cm) and pickleweed biomass (g) were approximately normal, and I used a scatterplot from part b to visually check whether the relationship between the variables appeared linear. The QQ plots for both salinity and biomass showed individual observations roughly following the reference line with very little outliers and the scatterplot suggested a roughly linear relationship, indicating that this data met all appropriate assumptions.
+
+------------------------------------------------------------------------
+
+Running Pearson's correlation test
+
+```{r}
+#| label: Pearson's correlation
+
+cor.test( # correlation test call
+  salinity$salinity_mS_cm, # choose salinity column for one variable
+  salinity$pickleweed, # choose pickleweed column for another variable
+  method = "pearson") # choose parametric correlation
+
+
 ```
