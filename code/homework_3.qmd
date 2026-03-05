@@ -1,0 +1,28 @@
+---
+title: "homework_3"
+author: "Hambee Makinoda"
+date: 2026-03-04
+format:
+  html:
+    toc: true 
+execute:
+  message: false 
+  warning: false 
+---
+
+**GitHub Repository:** [View Repository](https://github.com/Hambanana0923/ENVS-193DS_homework-03)
+
+# Set Up
+
+```{r}
+#| label: reading in packages and data
+#| message: false
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(readxl)
+
+salinity <- read_csv("data/salinity-pickleweed.csv")
+personal <- read_csv("data/env193ds_personaldata.csv")
+```
