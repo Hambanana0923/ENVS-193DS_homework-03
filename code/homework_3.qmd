@@ -23,8 +23,8 @@ library(here)
 library(janitor)
 library(readxl)
 
-salinity <- read_csv("../data/salinity-pickleweed.csv")
-personal <- read_csv("../data/env193ds_personaldata.csv")
+salinity <- read_csv("data/salinity-pickleweed.csv")
+personal <- read_csv("data/env193ds_personaldata.csv")
 ```
 
 # Problem 1. Slough soil salinity
@@ -32,3 +32,20 @@ personal <- read_csv("../data/env193ds_personaldata.csv")
 ## a. An appropriate test
 
 Two appropriate tests are Pearson's correlation and Spearman's rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson's correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman's rank correlation looks for monotonic relationship between variables in independent observations without assuming normality, meaning they evaluate whether or not biomass GENERALLY increases or decreases with salinity.
+
+## b. Create a visualization
+
+```{r}
+#| label: Visualization
+
+ggplot(data = salinity,
+       aes(x = salinity_mS_cm,
+           y = pickleweed)) +
+  geom_point(color = "darkgreen",
+             size = 3) +
+  labs(
+    x = "Soil Salinity (mS/cm)",
+    y = "California Pickleweed Biomass (g)",
+    title = "Relationship Between Soil Salinity and Pickleweed Biomass") +
+  theme_minimal()
+```
