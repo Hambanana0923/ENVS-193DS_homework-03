@@ -30,3 +30,5 @@ personal <- read_csv("../data/env193ds_personaldata.csv")
 # Problem 1. Slough soil salinity
 
 ## a. An appropriate test
+
+Two appropriate tests are Pearson's correlation and Spearman's rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson's correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman's rank correlation looks for monotonic relationship between variables in independent observations without assuming normality, meaning they evaluate whether or not biomass GENERALLY increases or decreases with salinity.
