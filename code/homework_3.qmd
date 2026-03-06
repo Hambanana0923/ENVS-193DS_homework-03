@@ -18,13 +18,14 @@ execute:
 #| label: reading in packages and data
 #| message: false
 
-library(tidyverse)
-library(here)
-library(janitor)
-library(readxl)
+library(tidyverse) # reading in tidyverse
+library(here) # reading in here package
+library(janitor) # read in janitor package
+library(readxl) # read in readxl package 
+library(ggeffects) # read in ggeffecrs package
 
-salinity <- read_csv("data/salinity-pickleweed.csv")
-personal <- read_csv("data/env193ds_personaldata.csv")
+salinity <- read_csv(here("data", "salinity-pickleweed.csv")) # store salinity-pickleweed.csv data in object salinity
+personal <- read_csv(here("data", "env193ds_personaldata.csv")) # store env193ds_personaldata.csv data in object personal
 ```
 
 # Problem 1. Slough soil salinity
@@ -38,16 +39,34 @@ Two appropriate tests are Pearson's correlation and Spearman's rank correlation,
 ```{r}
 #| label: Visualization
 
+pickleweed_model <- lm( # create model object with function to fit a linear model
+  pickleweed ~ salinity_mS_cm, # pickleweed biomass is predicted by salinity 
+  data = salinity) # choose data frame salinity
+  
+pickleweed_preds <- ggpredict( # creating a new object called pickleweed_preds
+  pickleweed_model, # model object
+  terms = "salinity_mS_cm")  # predictor 
+
 # base layer: ggplot call
 ggplot(data = salinity, # use salinity data frame
        aes(x = salinity_mS_cm, # set x axis to salinity_mS_cm column 
            y = pickleweed)) + # set y axis to pickleweed column
   geom_point(color = "darkgreen") + # first layer: scatter plot & change color to dark green
+  geom_ribbon(data = pickleweed_preds, # second layer: ribbon for CI
+              aes(x = x, # set x-axis
+                  y = predicted, # set y-axis
+                  ymin = conf.low, # set ymin as lower end of CI
+                  ymax = conf.high), # set ymax as higher end of CI
+              alpha = 0.1) + # lower opacity 
+  geom_line(data = pickleweed_preds, # third layer: trendline
+            aes(x = x, # set x-axis 
+                y = predicted), # set y as predicted values 
+            linewidth = 1) + # change width of the trendline
   labs(
     x = "Soil Salinity (mS/cm)", # change x-axis label
     y = "California Pickleweed Biomass (g)", # change y-axis label
     title = "Relationship Between Soil Salinity and Pickleweed Biomass") + # name the title of the graph
-  theme_minimal() # change ggplot theme to minimal
+  theme_classic() # change ggplot theme to minimal
 ```
 
 ## c. Check your assumptions and run your test
@@ -91,7 +110,6 @@ cor.test( # correlation test call
   salinity$pickleweed, # choose pickleweed column for another variable
   method = "pearson") # choose Pearson's correlation
 
-
 ```
 
 ## d. Results communication
@@ -120,7 +138,7 @@ cor.test( # correlation test call
 
 ```
 
-The Spearman’s correlation also shows a significant positive relationship between soil salinity (mS/cm) and pickleweed biomass (g) (Spearman ρ = 0.593, S = 824, p = 0.0034, $\alpha$ = 0.05). This leads to the same conclusion as the Pearson correlation test (Pearson's r = 0.53, t(21)= 2.90, p = 0.0086, $\alpha$ = 0.05): pickleweed biomass tends to increase as soil salinity increases. While Pearson evaluates a linear relationship using the raw values, Spearman evaluates a monotonic relationship using ranked values, but both tests indicate a similar positive association between the variables.
+The Spearman’s correlation also shows a significant positive relationship between soil salinity (mS/cm) and pickleweed biomass (g) (Spearman ρ = 0.593, S = 824, p = 0.0034, α = 0.05). The positive value of ρ (0.593) indicates a moderate positive monotonic relationship, meaning that as soil salinity increases, pickleweed biomass generally tends to increase as well. This leads to the same conclusion as the Pearson correlation test (Pearson’s r = 0.53, t(21) = 2.90, p = 0.0086, α = 0.05), where the positive r value (0.53) indicates a moderate positive linear relationship between the variables. While Pearson evaluates a linear relationship using the raw values, Spearman evaluates a monotonic relationship using ranked values, but both tests indicate a similar positive association between soil salinity and pickleweed biomass.
 
 # Problem 2. Personal data
 
@@ -150,7 +168,9 @@ ggplot(data = personal_clean, # start ggplot call with my_data_clean data frame
     plot.subtitle = element_text (size = 10)) + # change subtitle size 
     scale_color_manual(values = c( # Manually select colors of the graph 
       "School" = "darkgreen",
-      "Non-School" = "brown4" )) # manually change colors of the graph to be different from default
+      "Non-School" = "brown4" )) + # manually change colors of the graph to be different from default
+  theme(legend.position = "none") #taking out legend
+
 ```
 
 ------------------------------------------------------------------------
@@ -167,4 +187,17 @@ ggplot(data = personal_clean, # start with my_data_clean data frame
        x = "Amount of Sleep (min)", # relabel x-axis
        y = "Screen Time (min)") + # relabel y-axis
   theme_classic() # change ggplot theme 
+
 ```
+
+## b. Captions
+
+**Figure 1. Screen time differs between school days and non-school days.**
+
+Small semi-transparent points represent individual measurements of daily screen time (minutes) for school and non-school days. Non-school days are shown in red and school days in green. Boxplots summarize the distribution of screen time for each group, with the center line representing the median, the boxes representing the interquartile range (IQR), and the whiskers showing the spread of the data beyond the quartiles. Data collected March 3, 2026.
+
+------------------------------------------------------------------------
+
+**Figure 2. Relationship between sleep duration and screen time.**
+
+Small yellow points represent individual observations of screen time (minutes) plotted against amount of sleep (minutes) for each recorded day. Each point corresponds to one observation of sleep duration and the associated amount of screen time, allowing visualization of the overall pattern or relationship between the two variables. Data collected March 3, 2026.

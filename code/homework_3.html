@@ -72,6 +72,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="homework_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="homework_3_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -87,6 +116,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#problem-1.-slough-soil-salinity" id="toc-problem-1.-slough-soil-salinity" class="nav-link" data-scroll-target="#problem-1.-slough-soil-salinity">Problem 1. Slough soil salinity</a>
   <ul class="collapse">
   <li><a href="#a.-an-appropriate-test" id="toc-a.-an-appropriate-test" class="nav-link" data-scroll-target="#a.-an-appropriate-test">a. An appropriate test</a></li>
+  <li><a href="#b.-create-a-visualization" id="toc-b.-create-a-visualization" class="nav-link" data-scroll-target="#b.-create-a-visualization">b. Create a visualization</a></li>
+  <li><a href="#c.-check-your-assumptions-and-run-your-test" id="toc-c.-check-your-assumptions-and-run-your-test" class="nav-link" data-scroll-target="#c.-check-your-assumptions-and-run-your-test">c.&nbsp;Check your assumptions and run your test</a></li>
+  <li><a href="#d.-results-communication" id="toc-d.-results-communication" class="nav-link" data-scroll-target="#d.-results-communication">d.&nbsp;Results communication</a></li>
+  <li><a href="#e.-test-implications" id="toc-e.-test-implications" class="nav-link" data-scroll-target="#e.-test-implications">e. Test implications</a></li>
+  <li><a href="#f.-double-check-your-own-work" id="toc-f.-double-check-your-own-work" class="nav-link" data-scroll-target="#f.-double-check-your-own-work">f.&nbsp;Double check your own work</a></li>
+  </ul></li>
+  <li><a href="#problem-2.-personal-data" id="toc-problem-2.-personal-data" class="nav-link" data-scroll-target="#problem-2.-personal-data">Problem 2. Personal data</a>
+  <ul class="collapse">
+  <li><a href="#a.-updating-your-visualizations" id="toc-a.-updating-your-visualizations" class="nav-link" data-scroll-target="#a.-updating-your-visualizations">a. Updating your visualizations</a></li>
+  <li><a href="#b.-captions" id="toc-b.-captions" class="nav-link" data-scroll-target="#b.-captions">b. Captions</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -128,20 +167,216 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="set-up" class="level1">
 <h1>Set Up</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>salinity <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/salinity-pickleweed.csv"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>personal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/env193ds_personaldata.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># reading in tidyverse</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># reading in here package</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># read in janitor package</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># read in readxl package </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects) <span class="co"># read in ggeffecrs package</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>salinity <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"salinity-pickleweed.csv"</span>)) <span class="co"># store salinity-pickleweed.csv data in object salinity</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>personal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"env193ds_personaldata.csv"</span>)) <span class="co"># store env193ds_personaldata.csv data in object personal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="problem-1.-slough-soil-salinity" class="level1">
 <h1>Problem 1. Slough soil salinity</h1>
 <section id="a.-an-appropriate-test" class="level2">
 <h2 class="anchored" data-anchor-id="a.-an-appropriate-test">a. An appropriate test</h2>
-<p>Two appropriate tests are Pearson’s correlation and Spearman’s rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson’s correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman’s rank correlation looks for monotonic relationship between variables in independent observations without assuming normality, meaning they evaluate whether or not biomass GENERALLY increases or decreases with salinity.</p>
+<p>Two appropriate tests are Pearson’s correlation and Spearman’s rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson’s correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman’s rank correlation looks for monotonic relationship between variables by ranking the values for each variables separately in independent observations without assuming normality, meaning they evaluate whether or not biomass generally increases or decreases with salinity.</p>
+</section>
+<section id="b.-create-a-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="b.-create-a-visualization">b. Create a visualization</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pickleweed_model <span class="ot">&lt;-</span> <span class="fu">lm</span>( <span class="co"># create model object with function to fit a linear model</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  pickleweed <span class="sc">~</span> salinity_mS_cm, <span class="co"># pickleweed biomass is predicted by salinity </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> salinity) <span class="co"># choose data frame salinity</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pickleweed_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>( <span class="co"># creating a new object called pickleweed_preds</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  pickleweed_model, <span class="co"># model object</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">terms =</span> <span class="st">"salinity_mS_cm"</span>)  <span class="co"># predictor </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># base layer: ggplot call</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salinity, <span class="co"># use salinity data frame</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> salinity_mS_cm, <span class="co"># set x axis to salinity_mS_cm column </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> pickleweed)) <span class="sc">+</span> <span class="co"># set y axis to pickleweed column</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span> <span class="co"># first layer: scatter plot &amp; change color to dark green</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> pickleweed_preds, <span class="co"># second layer: ribbon for CI</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="co"># set x-axis</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted, <span class="co"># set y-axis</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low, <span class="co"># set ymin as lower end of CI</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high), <span class="co"># set ymax as higher end of CI</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span> <span class="co"># lower opacity </span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> pickleweed_preds, <span class="co"># third layer: trendline</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="co"># set x-axis </span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted), <span class="co"># set y as predicted values </span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># change width of the trendline</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Soil Salinity (mS/cm)"</span>, <span class="co"># change x-axis label</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"California Pickleweed Biomass (g)"</span>, <span class="co"># change y-axis label</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship Between Soil Salinity and Pickleweed Biomass"</span>) <span class="sc">+</span> <span class="co"># name the title of the graph</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="co"># change ggplot theme to minimal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="homework_3_files/figure-html/Visualization-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="c.-check-your-assumptions-and-run-your-test" class="level2">
+<h2 class="anchored" data-anchor-id="c.-check-your-assumptions-and-run-your-test">c.&nbsp;Check your assumptions and run your test</h2>
+<p>Checking assumption:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salinity, <span class="co"># starting data frame</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">sample =</span> salinity_mS_cm)) <span class="sc">+</span> <span class="co"># y-axis for a QQ plot</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># reference line in blue</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span> <span class="co"># actual points for the QQ plot</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># changing the theme to minimal</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co">#taking out legend</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="homework_3_files/figure-html/salinity%20obs%20(qqplot%20normality%20check)-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salinity, <span class="co"># starting data frame</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">sample =</span> pickleweed)) <span class="sc">+</span> <span class="co"># y-axis for a QQ plot</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># reference line in blue</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span> <span class="co"># actual points for the QQ plot</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># changing the theme to minimal</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co">#taking out legends</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="homework_3_files/figure-html/biomass%20obs%20(qqplot%20normality%20check)-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I checked the assumptions of normality and linearity for Pearson’s correlation. I used QQ plots to visually assess whether the distributions of soil salinity (mS/cm) and pickleweed biomass (g) were approximately normal, and I used a scatterplot from part b to visually check whether the relationship between the variables appeared linear. The QQ plots for both salinity and biomass showed individual observations roughly following the reference line with very little outliers and the scatterplot suggested a roughly linear relationship, indicating that this data met all appropriate assumptions.</p>
+<hr>
+<p>Running Pearson’s correlation test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>( <span class="co"># correlation test call</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  salinity<span class="sc">$</span>salinity_mS_cm, <span class="co"># choose salinity column for one variable</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  salinity<span class="sc">$</span>pickleweed, <span class="co"># choose pickleweed column for another variable</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"pearson"</span>) <span class="co"># choose Pearson's correlation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  salinity$salinity_mS_cm and salinity$pickleweed
+t = 2.8979, df = 21, p-value = 0.008605
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.1568265 0.7757682
+sample estimates:
+      cor 
+0.5344778 </code></pre>
+</div>
+</div>
+</section>
+<section id="d.-results-communication" class="level2">
+<h2 class="anchored" data-anchor-id="d.-results-communication">d.&nbsp;Results communication</h2>
+<p><u>Which test used and why:</u><br>
+</p>
+<p>To evaluate the strength of the relationship between California pickleweed biomass (g) and soil salinity (mS/cm), I used a Pearson’s correlation test because both variables are continuous &amp; normally distributed, and I wanted to measure the strength of their relationship.</p>
+<p><u>Interpretation of the test:</u><br>
+</p>
+<p>The results show a moderate positive relationship between soil salinity and pickleweed biomass, meaning that pickleweed biomass tends to increase as soil salinity increases. The correlation coefficient was moderate and positive (Pearson’s r = 0.53, t(21)= 2.90, p = 0.0086, <span class="math inline">\(\alpha\)</span> = 0.05), suggesting that higher salinity conditions are associated with greater pickleweed biomass in this restoration site.</p>
+</section>
+<section id="e.-test-implications" class="level2">
+<h2 class="anchored" data-anchor-id="e.-test-implications">e. Test implications</h2>
+<p>Our analysis shows a moderate and positive relationship between soil salinity and pickleweed biomass, meaning pickleweed tends to grow larger in areas with higher salinity levels. This statistical result suggests that restoration efforts of pickleweed may be more successful in parts of the site that are more saline, since pickleweed appears to have larger biomass at more saline conditions. When planning new plantings, we should prioritize areas with similar, high salinity levels to improve the chances of strong plant growth.</p>
+</section>
+<section id="f.-double-check-your-own-work" class="level2">
+<h2 class="anchored" data-anchor-id="f.-double-check-your-own-work">f.&nbsp;Double check your own work</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>( <span class="co"># correlation test call</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  salinity<span class="sc">$</span>salinity_mS_cm, <span class="co"># use salinity data</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  salinity<span class="sc">$</span>pickleweed, <span class="co"># use pickleweed biomass data</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"spearman"</span>) <span class="co"># choose Spearman's correlation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  salinity$salinity_mS_cm and salinity$pickleweed
+S = 824, p-value = 0.003426
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5928854 </code></pre>
+</div>
+</div>
+<p>The Spearman’s correlation also shows a significant positive relationship between soil salinity (mS/cm) and pickleweed biomass (g) (Spearman ρ = 0.593, S = 824, p = 0.0034, α = 0.05). The positive value of ρ (0.593) indicates a moderate positive monotonic relationship, meaning that as soil salinity increases, pickleweed biomass generally tends to increase as well. This leads to the same conclusion as the Pearson correlation test (Pearson’s r = 0.53, t(21) = 2.90, p = 0.0086, α = 0.05), where the positive r value (0.53) indicates a moderate positive linear relationship between the variables. While Pearson evaluates a linear relationship using the raw values, Spearman evaluates a monotonic relationship using ranked values, but both tests indicate a similar positive association between soil salinity and pickleweed biomass.</p>
+</section>
+</section>
+<section id="problem-2.-personal-data" class="level1">
+<h1>Problem 2. Personal data</h1>
+<section id="a.-updating-your-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="a.-updating-your-visualizations">a. Updating your visualizations</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>personal_clean <span class="ot">&lt;-</span> personal <span class="sc">|&gt;</span> <span class="co"># start with storing personal data frame in personal_clean</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="co"># clean names so it only contains lowercase and underscore</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> personal_clean, <span class="co"># start ggplot call with my_data_clean data frame</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> day_type, <span class="co"># choose x-axis</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> screen_time_min,<span class="co"># choose y-axis</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> day_type)) <span class="sc">+</span> <span class="co"># change color based on day_type </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="co"># first layer: boxplot</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="co"># second layer: jitter</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="fl">0.2</span>, <span class="co"># no height jitter, limit horizontal jitter</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># lower opacity of jitter</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Screen Time Differs between School Day and Non-School Day"</span>, <span class="co"># label title</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"2026-03-03"</span>, <span class="co"># label subtitle with most recent observation date</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Day Type"</span>, <span class="co"># relabel x-axis</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Screen Time (min)"</span>) <span class="sc">+</span> <span class="co"># relabel y-axis</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="co"># change ggplot theme</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="co"># use theme() function</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">11</span>), <span class="co"># change title size</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">10</span>)) <span class="sc">+</span> <span class="co"># change subtitle size </span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="co"># Manually select colors of the graph </span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>      <span class="st">"School"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Non-School"</span> <span class="ot">=</span> <span class="st">"brown4"</span> )) <span class="sc">+</span> <span class="co"># manually change colors of the graph to be different from default</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co">#taking out legend</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="homework_3_files/figure-html/categorical-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> personal_clean, <span class="co"># start with my_data_clean data frame</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> amount_of_sleep_min, <span class="co"># choose continuous variable x-axis</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> screen_time_min)) <span class="sc">+</span> <span class="co"># choose response variable for y-axis</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"yellow3"</span>) <span class="sc">+</span> <span class="co"># first layer: scatterplot &amp; change point color to red </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Sleep Time and Screen Time"</span>, <span class="co"># label title </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"2026-03-03"</span>, <span class="co"># label subtitle with most recent observation date</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Amount of Sleep (min)"</span>, <span class="co"># relabel x-axis</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Screen Time (min)"</span>) <span class="sc">+</span> <span class="co"># relabel y-axis</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="co"># change ggplot theme </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="homework_3_files/figure-html/continuous-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="b.-captions" class="level2">
+<h2 class="anchored" data-anchor-id="b.-captions">b. Captions</h2>
+<p><strong>Figure 1. Screen time differs between school days and non-school days.</strong></p>
+<p>Small semi-transparent points represent individual measurements of daily screen time (minutes) for school and non-school days. Non-school days are shown in red and school days in green. Boxplots summarize the distribution of screen time for each group, with the center line representing the median, the boxes representing the interquartile range (IQR), and the whiskers showing the spread of the data beyond the quartiles. Data collected March 3, 2026.</p>
+<hr>
+<p><strong>Figure 2. Relationship between sleep duration and screen time.</strong></p>
+<p>Small yellow points represent individual observations of screen time (minutes) plotted against amount of sleep (minutes) for each recorded day. Each point corresponds to one observation of sleep duration and the associated amount of screen time, allowing visualization of the overall pattern or relationship between the two variables. Data collected March 3, 2026.</p>
 </section>
 </section>
 
