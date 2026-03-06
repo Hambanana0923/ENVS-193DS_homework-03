@@ -202,4 +202,8 @@ Small semi-transparent points represent individual measurements of daily screen 
 
 Small yellow points represent individual observations of screen time (minutes) plotted against amount of sleep (minutes) for each recorded day. Each point corresponds to one observation of sleep duration and the associated amount of screen time, allowing visualization of the overall pattern or relationship between the two variables. Data collected March 3, 2026.
 
-# Problem 3.
+# Problem 3. Affective visualization
+
+## a. Describe in words what an affective visualization could look like for your personal data 
+
+My affective visualization will represent the difference in screen time between school days and non-school days using phone screen brightness as a metaphor. I will draw two phones side by side, where the brightness of each screen represents the average amount of screen time for that type of day. The school-day phone will glow much brighter, representing the higher screen time during those days, while the non-school day phone will appear dimmer to represent lower screen time, and I will also make gloomy drawing near school days phone and more lively environment for non-school day phone. The brightness visually communicates the feeling of being overwhelmed by screens on school days compared to more relaxed non-school days. This approach helps viewers emotionally understand how screen use changes depending on whether or not I have school that day, and how I am able to focus on other social activities or hobbies for non-school days.
