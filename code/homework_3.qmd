@@ -89,7 +89,7 @@ Running Pearson's correlation test
 cor.test( # correlation test call
   salinity$salinity_mS_cm, # choose salinity column for one variable
   salinity$pickleweed, # choose pickleweed column for another variable
-  method = "pearson") # choose parametric correlation
+  method = "pearson") # choose Pearson's correlation
 
 
 ```
@@ -107,3 +107,17 @@ The results show a moderate relationship between soil salinity and pickleweed bi
 ## e. Test implications
 
 Our analysis shows a moderate and positive relationship between soil salinity and pickleweed biomass, meaning pickleweed tends to grow larger in areas with higher salinity levels. This statistical result suggests that restoration efforts of pickleweed may be more successful in parts of the site that are more saline, since pickleweed appears to have larger biomass at more saline conditions. When planning new plantings, we should prioritize areas with similar, high salinity levels to improve the chances of strong plant growth.
+
+## f. Double check your own work
+
+```{r}
+#| label: Spearman's correlation
+
+cor.test( # correlation test call
+  salinity$salinity_mS_cm, # use salinity data
+  salinity$pickleweed, # use pickleweed biomass data
+  method = "spearman") # choose Spearman's correlation
+
+```
+
+The Spearman’s correlation also shows a significant positive relationship between soil salinity (mS/cm) and pickleweed biomass (g) (Spearman ρ = 0.593, S = 824, p = 0.0034, $\alpha$ = 0.05). This leads to the same conclusion as the Pearson correlation test (Pearson's r = 0.53, t(21)= 2.90, p = 0.0086, $\alpha$ = 0.05): pickleweed biomass tends to increase as soil salinity increases. While Pearson evaluates a linear relationship using the raw values, Spearman evaluates a monotonic relationship using ranked values, but both tests indicate a similar positive association between the variables.
