@@ -201,3 +201,5 @@ Small semi-transparent points represent individual measurements of daily screen 
 **Figure 2. Relationship between sleep duration and screen time.**
 
 Small yellow points represent individual observations of screen time (minutes) plotted against amount of sleep (minutes) for each recorded day. Each point corresponds to one observation of sleep duration and the associated amount of screen time, allowing visualization of the overall pattern or relationship between the two variables. Data collected March 3, 2026.
+
+# Problem 3.
