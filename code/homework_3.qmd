@@ -215,3 +215,17 @@ My affective visualization will represent the difference in screen time between 
 ## c. Make a draft of your visualization
 
 ![](images/clipboard-1276325821.jpeg)
+
+## d. Write an artist statement 
+
+**Content**\
+This piece visualizes how my screen time differs between school days and non-school days. It communicates how the intensity of screen use changes depending on the demands of a school schedule and social plans/hobbies on weekends.
+
+**Influences**\
+I got my idea from Jill Pelto, and how her drawing includes lines that resembles the original data visualization. I incorporated this idea of sprinkling hint of original data by bold line in my illustration to show screen time median differences while creating more artistic medium for data communication.
+
+**Form**\
+The work is a hand-drawn illustration using a pencil and color pens to represent smartphone screens and light effects. The brightness of each phone screen visually represents the amount of time spent using screens.
+
+**Process**\
+I first examined my screen-time data to understand how it differed between school days and non-school days, and used box and whisker plot + scatterplot to determine how there I had higher screen time on school days than non-school days. I then developed the concept of using screen brightness as a visual metaphor for screen time and sketched the phones as a draft to illustrate how the brightness levels correspond to the data as well as the bold lines to compare the median. I then filled out the perimeter of phones with darker, gloomy colors for school day, and more vibrant colors for non-school days with my hobbies to illustrate how my focus is elsewhere than electronics
