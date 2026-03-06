@@ -31,7 +31,7 @@ personal <- read_csv("data/env193ds_personaldata.csv")
 
 ## a. An appropriate test
 
-Two appropriate tests are Pearson's correlation and Spearman's rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson's correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman's rank correlation looks for monotonic relationship between variables in independent observations without assuming normality, meaning they evaluate whether or not biomass generally increases or decreases with salinity.
+Two appropriate tests are Pearson's correlation and Spearman's rank correlation, which measures the STRENGTH of the relationship between soil salinity and California pickleweed biomass. Pearson's correlation uses two continuous variables that were observed independently, and assumes that the variables are normally distributed to see how strongly two variables change together in a straight-line/linear relationship. Spearman's rank correlation looks for monotonic relationship between variables by ranking the values for each variables separately in independent observations without assuming normality, meaning they evaluate whether or not biomass generally increases or decreases with salinity.
 
 ## b. Create a visualization
 
@@ -98,11 +98,11 @@ cor.test( # correlation test call
 
 [Which test used and why:]{.underline}\
 
-To evaluate the strength of the relationship between California pickleweed biomass (g) and soil salinity (mS/cm), I used a Pearson’s correlation test because both variables are continuous and I wanted to measure the strength of their relationship.
+To evaluate the strength of the relationship between California pickleweed biomass (g) and soil salinity (mS/cm), I used a Pearson’s correlation test because both variables are continuous & normally distributed, and I wanted to measure the strength of their relationship.
 
 [Interpretation of the test:]{.underline}\
 
-The results show a moderate relationship between soil salinity and pickleweed biomass, meaning that pickleweed biomass tends to increase as soil salinity increases. The correlation coefficient was moderate and positive (Pearson's r = 0.53, t(21)= 2.90, p = 0.0086, $\alpha$ = 0.05), suggesting that higher salinity conditions are associated with greater pickleweed biomass in this restoration site.
+The results show a moderate positive relationship between soil salinity and pickleweed biomass, meaning that pickleweed biomass tends to increase as soil salinity increases. The correlation coefficient was moderate and positive (Pearson's r = 0.53, t(21)= 2.90, p = 0.0086, $\alpha$ = 0.05), suggesting that higher salinity conditions are associated with greater pickleweed biomass in this restoration site.
 
 ## e. Test implications
 
@@ -121,3 +121,50 @@ cor.test( # correlation test call
 ```
 
 The Spearman’s correlation also shows a significant positive relationship between soil salinity (mS/cm) and pickleweed biomass (g) (Spearman ρ = 0.593, S = 824, p = 0.0034, $\alpha$ = 0.05). This leads to the same conclusion as the Pearson correlation test (Pearson's r = 0.53, t(21)= 2.90, p = 0.0086, $\alpha$ = 0.05): pickleweed biomass tends to increase as soil salinity increases. While Pearson evaluates a linear relationship using the raw values, Spearman evaluates a monotonic relationship using ranked values, but both tests indicate a similar positive association between the variables.
+
+# Problem 2. Personal data
+
+## a. Updating your visualizations
+
+```{r}
+#| label: categorical
+
+personal_clean <- personal |> # start with storing personal data frame in personal_clean
+  clean_names() # clean names so it only contains lowercase and underscore
+
+ggplot(data = personal_clean, # start ggplot call with my_data_clean data frame
+       aes(x = day_type, # choose x-axis
+           y = screen_time_min,# choose y-axis
+           color = day_type)) + # change color based on day_type 
+  geom_boxplot() + # first layer: boxplot
+  geom_jitter(height = 0, # second layer: jitter
+              width = 0.2, # no height jitter, limit horizontal jitter
+              alpha = 0.7) + # lower opacity of jitter
+  labs(title = "Screen Time Differs between School Day and Non-School Day", # label title
+       subtitle = "2026-03-03", # label subtitle with most recent observation date
+       x = "Day Type", # relabel x-axis
+       y = "Screen Time (min)") + # relabel y-axis
+  theme_classic() + # change ggplot theme
+  theme( # use theme() function
+    plot.title = element_text (size = 11), # change title size
+    plot.subtitle = element_text (size = 10)) + # change subtitle size 
+    scale_color_manual(values = c( # Manually select colors of the graph 
+      "School" = "darkgreen",
+      "Non-School" = "brown4" )) # manually change colors of the graph to be different from default
+```
+
+------------------------------------------------------------------------
+
+```{r}
+#| label: continuous 
+
+ggplot(data = personal_clean, # start with my_data_clean data frame
+       aes(x = amount_of_sleep_min, # choose continuous variable x-axis
+           y = screen_time_min)) + # choose response variable for y-axis
+  geom_point(color = "yellow3") + # first layer: scatterplot & change point color to red 
+  labs(title = "Relationship between Sleep Time and Screen Time", # label title 
+       subtitle = "2026-03-03", # label subtitle with most recent observation date
+       x = "Amount of Sleep (min)", # relabel x-axis
+       y = "Screen Time (min)") + # relabel y-axis
+  theme_classic() # change ggplot theme 
+```
