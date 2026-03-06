@@ -243,3 +243,7 @@ The author addresses whether or not treated municipal wastewater from treatment 
 This paper utilizes linear regression as the basis of their statistical analysis of the experiment. Response variable is set as the pollutant concentration downstream of the discharge site, and predictor variable as the pollutant concentrations upstream and in the discharged wastewater.
 
 ![](images/clipboard-323289233.png)
+
+## b. Visual clarity 
+
+The table does a good job clearly summarizing the statistical results by showing regression coefficients, standard errors, and significance levels for each pollutant indicator. Each column corresponds to a different pollutant (BOD₅, COD, TN, TP, etc.), allowing the audience to easily see the differences side by side. However, the table includes many numbers and abbreviations (C~before~, etc.), which can make it somewhat difficult to interpret quickly without referring back to the texts explaining this table above or index provided below this table. This table also does not show the underlying data on the table, but instead shows summarizing table after linear regression test was executed.
