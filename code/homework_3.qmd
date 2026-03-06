@@ -247,3 +247,7 @@ This paper utilizes linear regression as the basis of their statistical analysis
 ## b. Visual clarity 
 
 The table does a good job clearly summarizing the statistical results by showing regression coefficients, standard errors, and significance levels for each pollutant indicator. Each column corresponds to a different pollutant (BOD₅, COD, TN, TP, etc.), allowing the audience to easily see the differences side by side. However, the table includes many numbers and abbreviations (C~before~, etc.), which can make it somewhat difficult to interpret quickly without referring back to the texts explaining this table above or index provided below this table. This table also does not show the underlying data on the table, but instead shows summarizing table after linear regression test was executed.
+
+## c. Aesthetic clarity
+
+The table contains overwhelming amount of numbers, which creates some visual clutter because many values and grid lines compete for attention. There is no bold or italic formatting used to highlight important numbers, but the authors use asterisks next to coefficients to indicate statistically significant results. While these symbols help draw attention to important values, the table is still visually dense and requires careful reading to interpret the key findings. The table also has minimal grid lines, especially horizontal lines, that can make it more prone to mistakes in reading the data, leading to miscommunication of the results.
