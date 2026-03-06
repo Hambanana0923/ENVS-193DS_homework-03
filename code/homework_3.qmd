@@ -204,7 +204,7 @@ Small yellow points represent individual observations of screen time (minutes) p
 
 # Problem 3. Affective visualization
 
-## a. Describe in words what an affective visualization could look like for your personal data 
+## a. Describe in words what an affective visualization could look like for your personal data
 
 My affective visualization will represent the difference in screen time between school days and non-school days using phone screen brightness as a metaphor. I will draw two phones side by side, where the brightness of each screen represents the average amount of screen time for that type of day. The school-day phone will glow much brighter, representing the higher screen time during those days, while the non-school day phone will appear dimmer to represent lower screen time, and I will also make gloomy drawing near school days phone and more lively environment for non-school day phone. The brightness visually communicates the feeling of being overwhelmed by screens on school days compared to more relaxed non-school days. This approach helps viewers emotionally understand how screen use changes depending on whether or not I have school that day, and how I am able to focus on other social activities or hobbies for non-school days.
 
@@ -216,7 +216,7 @@ My affective visualization will represent the difference in screen time between 
 
 ![](images/clipboard-1276325821.jpeg)
 
-## d. Write an artist statement 
+## d. Write an artist statement
 
 **Content**\
 This piece visualizes how my screen time differs between school days and non-school days. It communicates how the intensity of screen use changes depending on the demands of a school schedule and social plans/hobbies on weekends.
@@ -229,3 +229,17 @@ The work is a hand-drawn illustration using a pencil and color pens to represent
 
 **Process**\
 I first examined my screen-time data to understand how it differed between school days and non-school days, and used box and whisker plot + scatterplot to determine how there I had higher screen time on school days than non-school days. I then developed the concept of using screen brightness as a visual metaphor for screen time and sketched the phones as a draft to illustrate how the brightness levels correspond to the data as well as the bold lines to compare the median. I then filled out the perimeter of phones with darker, gloomy colors for school day, and more vibrant colors for non-school days with my hobbies to illustrate how my focus is elsewhere than electronics
+
+## e. Prep your materials to share in class
+
+[View](https://docs.google.com/presentation/d/1mTlHOCZJp_WOYr80tnWmgxIEmgFWJl0HD7A9WBAC4gc/edit?usp=sharing)
+
+# Problem 4. Statistical critique
+
+## a. Revisit and summarize
+
+The author addresses whether or not treated municipal wastewater from treatment plants significantly affects pollutant concentrations in the Bystrzyca River at its discharge point. The author also asks whether the river itself has self-purification processes in the natural environment, and assesses to the extent of its success in self-purification.
+
+This paper utilizes linear regression as the basis of their statistical analysis of the experiment. Response variable is set as the pollutant concentration downstream of the discharge site, and predictor variable as the pollutant concentrations upstream and in the discharged wastewater.
+
+![](images/clipboard-323289233.png)
